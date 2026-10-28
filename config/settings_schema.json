@@ -1,0 +1,36 @@
+
+[
+  {
+    "name": "Iron Anchor Tattoo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand identity"
+      },
+      {
+        "type": "text",
+        "id": "brand_tagline",
+        "label": "Brand tagline",
+        "default": "Art made permanent. Built to stand apart."
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#0b0b0d"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#f7f7f8"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Silver accent",
+        "default": "#c5c7cc"
+      }
+    ]
+  }
+]
