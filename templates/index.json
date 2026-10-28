@@ -1,0 +1,28 @@
+
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "INDEPENDENT TATTOO ART",
+        "heading": "ART THAT LEAVES A MARK",
+        "description": "Bold tattoo culture. Original artwork. Timeless attitude.",
+        "button_label": "Explore the collection"
+      }
+    },
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "THE COLLECTION",
+        "heading": "ART. CULTURE. IDENTITY.",
+        "description": "Discover original artwork and pieces inspired by tattoo culture.",
+        "products_to_show": 4,
+        "show_view_all": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured_products"
+  ]
+}
