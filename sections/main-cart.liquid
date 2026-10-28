@@ -1,0 +1,97 @@
+
+<section class="cart-page">
+  <div class="section-heading">
+    <p class="eyebrow">YOUR SELECTION</p>
+    <h1>SHOPPING CART</h1>
+    <p>Review your pieces before making them yours.</p>
+  </div>
+
+  {% if cart.item_count > 0 %}
+    <form action="{{ routes.cart_url }}" method="post" id="CartForm">
+      <div class="cart-items">
+        {% for item in cart.items %}
+          <article class="cart-item">
+            <a href="{{ item.url }}" class="cart-item-image">
+              {% if item.image %}
+                {{
+                  item.image
+                  | image_url: width: 300
+                  | image_tag: loading: 'lazy', alt: item.product.title
+                }}
+              {% endif %}
+            </a>
+
+            <div class="cart-item-details">
+              <h2>
+                <a href="{{ item.url }}">
+                  {{ item.product.title | escape }}
+                </a>
+              </h2>
+
+              {% unless item.variant.title == 'Default Title' %}
+                <p>{{ item.variant.title | escape }}</p>
+              {% endunless %}
+
+              <p class="cart-item-price">{{ item.final_price | money }}</p>
+
+              <label for="Quantity-{{ forloop.index }}">Quantity</label>
+              <input
+                id="Quantity-{{ forloop.index }}"
+                type="number"
+                name="updates[]"
+                value="{{ item.quantity }}"
+                min="0"
+                max="99"
+                class="quantity-input"
+              >
+
+              <a class="remove-link" href="{{ item.url_to_remove }}">
+                Remove
+              </a>
+            </div>
+
+            <p class="cart-line-total">{{ item.final_line_price | money }}</p>
+          </article>
+        {% endfor %}
+      </div>
+
+      <div class="cart-summary">
+        <p class="cart-subtotal">
+          Subtotal
+          <strong>{{ cart.total_price | money }}</strong>
+        </p>
+
+        <p class="cart-note">
+          Shipping and applicable taxes are calculated at checkout.
+        </p>
+
+        <button class="button button-secondary" type="submit" name="update">
+          UPDATE CART
+        </button>
+
+        <button class="button" type="submit" name="checkout">
+          PROCEED TO CHECKOUT
+        </button>
+
+        <a class="continue-shopping" href="{{ routes.all_products_collection_url }}">
+          Continue shopping
+        </a>
+      </div>
+    </form>
+  {% else %}
+    <div class="empty-state">
+      <h2>YOUR CART IS EMPTY</h2>
+      <p>Your next favorite piece is waiting for you.</p>
+      <a class="button" href="{{ routes.all_products_collection_url }}">
+        EXPLORE THE SHOP
+      </a>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Main cart",
+  "settings": []
+}
+{% endschema %}
