@@ -1,0 +1,110 @@
+
+<section class="section featured-products">
+  <div class="section-heading">
+    <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h2>{{ section.settings.heading | escape }}</h2>
+    {% if section.settings.description != blank %}
+      <p>{{ section.settings.description | escape }}</p>
+    {% endif %}
+  </div>
+
+  {% assign featured_collection = section.settings.collection %}
+
+  {% if featured_collection != blank and featured_collection.products_count > 0 %}
+    <div class="product-grid">
+      {% for product in featured_collection.products limit: section.settings.products_to_show %}
+        <article class="product-card">
+          <a href="{{ product.url }}">
+            {% if product.featured_image %}
+              {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: product.title }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </a>
+
+          <div class="product-info">
+            <h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+            <p class="price">
+              {% if product.price_varies %}From {% endif %}
+              {{ product.price_min | money }}
+            </p>
+
+            {% if product.available %}
+              {% assign featured_variant = product.selected_or_first_available_variant %}
+              {% form 'product', product, class: 'featured-product-form' %}
+                <input type="hidden" name="id" value="{{ featured_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button class="button" type="submit">
+                  Add to cart
+                </button>
+              {% endform %}
+            {% else %}
+              <p class="price">Sold out</p>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Select a collection in the theme editor to display your products here.</p>
+  {% endif %}
+
+  {% if section.settings.show_view_all and featured_collection != blank %}
+    <p>
+      <a class="button" href="{{ featured_collection.url }}">
+        View all products
+      </a>
+    </p>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "The collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ART. CULTURE. IDENTITY."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover original artwork and pieces inspired by tattoo culture."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show view all button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured products"
+    }
+  ]
+}
+{% endschema %}
