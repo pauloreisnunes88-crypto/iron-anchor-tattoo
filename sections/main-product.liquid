@@ -1,0 +1,68 @@
+
+<section class="section product-page">
+  <div class="product-grid">
+    <div class="product-gallery">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title }}
+      {% endif %}
+    </div>
+
+    <div class="product-info">
+      {% if section.settings.show_vendor and product.vendor != blank %}
+        <p class="eyebrow">{{ product.vendor | escape }}</p>
+      {% endif %}
+
+      <h1>{{ product.title | escape }}</h1>
+      <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
+
+      {% if product.description != blank %}
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+      {% endif %}
+
+      {% if product.available %}
+        {% form 'product', product, class: 'product-form' %}
+          {% if product.has_only_default_variant == false %}
+            <label for="VariantSelect-{{ section.id }}">Choose an option</label>
+            <select id="VariantSelect-{{ section.id }}" name="id">
+              {% for variant in product.variants %}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                  {{ variant.title | escape }} — {{ variant.price | money }}
+                  {% unless variant.available %} (Sold out){% endunless %}
+                </option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          {% endif %}
+
+          <label for="Quantity-{{ section.id }}">Quantity</label>
+          <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1">
+
+          <button class="button" type="submit">Add to cart</button>
+        {% endform %}
+      {% else %}
+        <p class="price">Sold out</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
