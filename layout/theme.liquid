@@ -1,0 +1,32 @@
+
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b0b0d">
+    <title>{{ page_title }}{% if current_page != 1 %} — Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+    {{ content_for_header }}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#MainContent">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="{{ routes.root_url }}">IRON ANCHOR<span> TATTOO</span></a>
+      <nav aria-label="Main navigation">
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.all_products_collection_url }}">Shop</a>
+        <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+      </nav>
+    </header>
+    <main id="MainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+    <footer class="site-footer">
+      <p>IRON ANCHOR TATTOO</p>
+      <p>Art made permanent. Built to stand apart.</p>
+      <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</small>
+    </footer>
+  </body>
+</html>
