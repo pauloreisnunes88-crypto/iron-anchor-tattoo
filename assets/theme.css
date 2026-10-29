@@ -1,4 +1,4 @@
-:root {
+ :root {
   --bg: #0b0b0d;
   --surface: #151518;
   --surface-alt: #1c1d22;
@@ -150,7 +150,8 @@ h3 {
 }
 
 .hero-actions,
-.story-actions {
+.story-actions,
+.footer-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -332,6 +333,11 @@ h3 {
   letter-spacing: 0.15em;
 }
 
+.site-footer small {
+  display: block;
+  margin-top: 1.5rem;
+}
+
 input,
 textarea,
 select {
@@ -380,7 +386,8 @@ select {
   }
 
   .story-actions,
-  .hero-actions {
+  .hero-actions,
+  .footer-actions {
     flex-direction: column;
     align-items: stretch;
   }
