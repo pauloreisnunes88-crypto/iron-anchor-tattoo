@@ -1,0 +1,111 @@
+<section class="story section">
+  <div class="story-inner">
+    <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h2>{{ section.settings.heading | escape }}</h2>
+
+    {% if section.settings.description != blank %}
+      <p class="story-copy">{{ section.settings.description | escape }}</p>
+    {% endif %}
+
+    <div class="story-grid">
+      <div class="story-card">
+        <strong>{{ section.settings.stat_one_value | escape }}</strong>
+        <span>{{ section.settings.stat_one_label | escape }}</span>
+      </div>
+      <div class="story-card">
+        <strong>{{ section.settings.stat_two_value | escape }}</strong>
+        <span>{{ section.settings.stat_two_label | escape }}</span>
+      </div>
+      <div class="story-card">
+        <strong>{{ section.settings.stat_three_value | escape }}</strong>
+        <span>{{ section.settings.stat_three_label | escape }}</span>
+      </div>
+    </div>
+
+    {% if section.settings.button_label != blank %}
+      <div class="story-actions">
+        <a class="button primary" href="{{ section.settings.button_link | default: '#contact' }}">
+          {{ section.settings.button_label | escape }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Studio story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "The studio"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Original tattoo culture for people who want to stand out."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Iron Anchor Tattoo blends industrial edge, personal storytelling, and premium craftsmanship into artwork built to last."
+    },
+    {
+      "type": "text",
+      "id": "stat_one_value",
+      "label": "Stat 1 value",
+      "default": "Original"
+    },
+    {
+      "type": "text",
+      "id": "stat_one_label",
+      "label": "Stat 1 label",
+      "default": "art direction"
+    },
+    {
+      "type": "text",
+      "id": "stat_two_value",
+      "label": "Stat 2 value",
+      "default": "Premium"
+    },
+    {
+      "type": "text",
+      "id": "stat_two_label",
+      "label": "Stat 2 label",
+      "default": "materials"
+    },
+    {
+      "type": "text",
+      "id": "stat_three_value",
+      "label": "Stat 3 value",
+      "default": "Custom"
+    },
+    {
+      "type": "text",
+      "id": "stat_three_label",
+      "label": "Stat 3 label",
+      "default": "concepts"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Book a consultation"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Studio story"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+<section class="cta-banner section">
+  <div class="cta-banner-inner">
+    <div>
+      <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h2>{{ section.settings.heading | escape }}</h2>
+    </div>
+
+    {% if section.settings.description != blank %}
+      <p>{{ section.settings.description | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.button_label != blank %}
+      <a class="button primary" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+        {{ section.settings.button_label | escape }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Call to action",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "Start your next piece"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Make your next mark unforgettable."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Build a custom tattoo concept and turn your story into a statement piece."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Book a session"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Call to action"
+    }
+  ]
+}
+{% endschema %}
